@@ -23,13 +23,3 @@ def query(flight_info):
     else:
         return {'error': 'Failed to fetch flight information'}
     
-app = Flask(__name__)
-app.register_blueprint(flight_ap)
-
-@app.route('/flight/<flight_iata>')
-def get_flight(flight_iata):
-    flight_data = query(flight_iata)
-    return jsonify(flight_data)
-    
-if __name__ == "__main__":
-    app.run(debug=True)
