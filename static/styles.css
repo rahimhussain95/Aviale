@@ -4,9 +4,10 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-width: 100vh;
     margin: 0;
 }
+
 
 button {
     border-radius: 3px;
@@ -22,3 +23,17 @@ button {
     gap: 20px;
 }
 
+.flight_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30%;
+    min-width: 90%;
+}
+
+.trademark {
+    display: flex;
+    justify-content: space-between;
+    height: 20%;
+    width: 90%;
+}

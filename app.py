@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import sqlite3
 from api import query
 
@@ -22,10 +22,27 @@ def status():
 
         flightIATA = db.execute("SELECT IATA FROM airlines WHERE airline = ?", (airline,)).fetchone()[0]
         flight_data = query(flightIATA + flightnumber)
+        flight_info = flight_data['data'][0]
 
-        departure_airport = flight_data['data'][0]['departure']['airport']
+        departure_details = {
+            "departure_airport": flight_info['departure']['airport'],
+            "departure_iata": flight_info['departure']['iata'],
+            "departure_terminal": flight_info['departure']['terminal'],
+            "departure_gate": flight_info['departure']['gate'],
+            "departure_scheduled": datetime.fromisoformat(flight_info['departure']['scheduled']).strftime("%I:%M %p"),
+        }
 
-        return render_template("status.html", departure=departure_airport);
+        arrival_details = {
+            "arrival_airport": flight_info['arrival']['airport'],
+            "arrival_iata": flight_info['arrival']['iata'],
+            "arrival_terminal": flight_info['arrival']['terminal'],
+            "arrival_gate": flight_info['arrival']['gate'],
+            "arrival_scheduled": datetime.fromisoformat(flight_info['arrival']['scheduled']).strftime("%I:%M %p"),
+        }
+
+        conn.close()
+
+        return render_template("status.html", **departure_details, **arrival_details)
 
     return redirect("/")
 

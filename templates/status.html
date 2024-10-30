@@ -1,4 +1,37 @@
 {% extends "layout.html" %}
 {% block main %}
-    <div>Departure: {{ departure }}</div>
+    <div class="info">
+        <div class="airline_trademark">
+            <img src="../static/tail_logo.png" alt="tail" height="200px" width="200px">
+            <img src="../static/logo.png" alt="logo" height="200px" width="200px">
+        </div>
+        <div class="flight_info">
+            <div class="depature">
+                <table>
+                    <thead>
+                        <tr><th>{{ departure_iata }}</th></tr>
+                        <tr><th>{{ departure_airport }}</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Gate: {{ departure_gate }}</td></tr>
+                        <tr><td>Terminal: {{ departure_terminal }}</td></tr>
+                        <tr><td>Departs: {{ departure_scheduled }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="arrival">
+                <table>
+                    <thead>
+                        <tr><th>{{ arrival_iata }}</th></tr>
+                        <tr><th>{{ arrival_airport }}</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Gate: {{ arrival_gate }}</td></tr>
+                        <tr><td>Terminal: {{ arrival_terminal }}</td></tr>
+                        <tr><td>Arrives: {{ arrival_scheduled }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
