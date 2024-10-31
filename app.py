@@ -1,10 +1,12 @@
 from datetime import datetime
 import sqlite3
-from api import query
+from api import query, flight_ap
 
 from flask import Flask, flash, redirect, render_template, request
 
 app = Flask(__name__)
+
+app.register_blueprint(flight_ap, url_prefix='/api')
 
 @app.route("/")
 def index():
@@ -46,5 +48,3 @@ def status():
 
     return redirect("/")
 
-if __name__ == "__main__":
-    app.run(debug=True)

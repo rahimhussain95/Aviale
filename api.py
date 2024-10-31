@@ -1,11 +1,13 @@
 from flask import Flask, redirect, render_template, request, Blueprint, jsonify
 import requests
+from dotenv import load_dotenv
+import os
 
 flight_ap = Blueprint('api', __name__)
 
 #Aviation Stack API
-SOURCE_URL = 'http://api.aviationstack.com/v1/'
-KEY = 'dcb9a120af503f155746458d12d3fd3d'
+SOURCE_URL = os.getenv('SOURCE')
+KEY = os.getenv('AVIATION_API_KEY')
 
 def query(flight_info):
     endpoint = f"{SOURCE_URL}flights"
