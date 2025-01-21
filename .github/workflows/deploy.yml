@@ -45,9 +45,9 @@ jobs:
       - name: Update Kubernetes deployment manifest
         run: |
           sed -i 's|image: rahimhussain95/aviale:.*|image: rahimhussain95/aviale:${{ env.IMAGE_TAG }}|' kubernetes-repo/apps/aviale/deployment.yaml
-          git add kubernetes-repo/
           git config --global user.email "rahimh.dev@gmail.com"
           git config --global user.name "GitHub Actions"
+          git add kubernetes-repo/apps/aviale/deployment.yaml
           git commit -am "Update deployment image to rahimhussain95/aviale:${{ env.IMAGE_TAG }}"
           git push origin main
 
