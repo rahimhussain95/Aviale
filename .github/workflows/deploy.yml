@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: rahimhussain95/kubernetes-repo 
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.KUBERNETES_REPO_TOKEN }}
           path: kubernetes-repo
 
       # Update Kubernetes deployment manifest
