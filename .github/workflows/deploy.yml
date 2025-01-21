@@ -54,7 +54,7 @@ jobs:
       # Sync ArgoCD run
       - name: Notify ArgoCD to sync and deploy the updated app
         run: |
-          curl -X POST https://argocd.local/api/v1/applications/aviale/sync \
+          curl -X POST https://argocd.home/api/v1/applications/aviale/sync \
             -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{}'
