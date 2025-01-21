@@ -1,3 +1,8 @@
+# Github Actions Deployment
+# Updated code is pushed to github repo and docker image is built + pushed to docker hub
+# Kubernetes-repo is updated to reflect latest kubernetes manifest deployment
+# ArgoCD monitors and automatically synchronizes K8s live-state to ensure deployment
+
 name: Build and Deploy Aviale to Kubernetes with ArgoCD
 
 on:
@@ -10,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout Aviale repo
       - name: Checkout Aviale app repo
         uses: actions/checkout@v2
 
@@ -31,16 +37,16 @@ jobs:
           docker build -t rahimhussain95/aviale:$IMAGE_TAG .
           docker push rahimhussain95/aviale:$IMAGE_TAG
           echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
-
-      # Checkout Kubernetes 
+      
+      # Github Actions securely access kubernetes-repo
       - name: Checkout Kubernetes repo
         uses: actions/checkout@v2
         with:
           repository: rahimhussain95/kubernetes-repo 
           token: ${{ secrets.KUBERNETES_REPO_TOKEN }}
           path: kubernetes-repo
-
-      # Update Kubernetes deployment manifest
+      
+      # Kubernetes deploys updated container
       - name: Update Kubernetes deployment manifest
         run: |
           cd kubernetes-repo
@@ -51,10 +57,10 @@ jobs:
           git commit -am "Update deployment image to rahimhussain95/aviale:${{ env.IMAGE_TAG }}"
           git push origin main
 
-      # Sync ArgoCD run
-      - name: Notify ArgoCD to sync and deploy the updated app
-        run: |
-          curl -X POST https://argocd.home/api/v1/applications/aviale/sync \
-            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{}'
+      ## Allows for ArgoCD to manually sync and deploy. Synchronization is set to auto-sync. Toggle + configure to set manual deployment.
+      # - name: Notify ArgoCD to sync and deploy the updated app
+      #   run: |
+      #     curl -X POST https://argocd.home/api/v1/applications/aviale/sync \
+      #       -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+      #       -H "Content-Type: application/json" \
+      #       -d '{}'
