@@ -1,0 +1,59 @@
+name: Build and Deploy Aviale to Kubernetes with ArgoCD
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout Aviale
+      - name: Checkout Aviale app repo
+        uses: actions/checkout@v2
+
+      # Docker Build
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Docker Login
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Push Docker Image
+      - name: Build and push Docker image
+        run: |
+          IMAGE_TAG=${{ github.sha }}
+          docker build -t rahimhussain95/aviale:$IMAGE_TAG .
+          docker push rahimhussain95/aviale:$IMAGE_TAG
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+
+      # Checkout Kubernetes 
+      - name: Checkout Kubernetes repo
+        uses: actions/checkout@v2
+        with:
+          repository: rahimhussain95/kubernetes-repo 
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: kubernetes-repo
+
+      # Update and Deploy Kubernetes
+      - name: Update Kubernetes deployment manifest
+        run: |
+          sed -i 's|image: rahimhussain95/aviale:.*|image: rahimhussain95/aviale:${{ env.IMAGE_TAG }}|' kubernetes-repo/apps/aviale/deployment.yaml
+          git config --global user.email "rahimh.dev@gmail.com"
+          git config --global user.name "GitHub Actions"
+          git commit -am "Update deployment image to rahimhussain95/aviale:${{ env.IMAGE_TAG }}"
+          git push origin main
+
+      # Sync ArgoCD run
+      - name: Notify ArgoCD to sync and deploy the updated app
+        run: |
+          curl -X POST https://argocd.local/api/v1/applications/aviale/sync \
+            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{}'
