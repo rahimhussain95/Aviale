@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout Aviale
       - name: Checkout Aviale app repo
         uses: actions/checkout@v2
 
@@ -44,17 +43,12 @@ jobs:
       # Update Kubernetes deployment manifest
       - name: Update Kubernetes deployment manifest
         run: |
+          cd kubernetes-repo
           sed -i 's|image: rahimhussain95/aviale:.*|image: rahimhussain95/aviale:${{ env.IMAGE_TAG }}|' kubernetes-repo/apps/aviale/deployment.yaml
           git config --global user.email "rahimh.dev@gmail.com"
           git config --global user.name "GitHub Actions"
-          
-          # Stage only the modified file, not the entire repo
           git add kubernetes-repo/apps/aviale/deployment.yaml
-
-          # Commit the change
           git commit -am "Update deployment image to rahimhussain95/aviale:${{ env.IMAGE_TAG }}"
-
-          # Push the change to the repo
           git push origin main
 
       # Sync ArgoCD run
