@@ -19,11 +19,12 @@ def query_flight(ident, ident_type='designator'):
         'max_pages': 1
     }
 
-    response = requests.get(endpoint, headers=HEADERS params=params)
+    response = requests.get(endpoint, headers=HEADERS, params=params)
 
     if response.status_code == 200:
         data = response.json()
         return data
     else:
+        print{f"Error: {response.status_code}, {response.text}"}
         return {'error': 'Failed to fetch flight information'}
     

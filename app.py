@@ -2,7 +2,7 @@ from datetime import datetime
 import sqlite3
 from api import query_flight, flight_ap
 
-from flask import Flask, flash, redirect, render_template, request
+from flask import Flask, flash, redirect, render_template, request, jsonify
 
 app = Flask(__name__)
 
