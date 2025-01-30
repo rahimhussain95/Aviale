@@ -7,7 +7,7 @@ flight_ap = Blueprint('api', __name__)
 
 #Aviation Stack API
 SOURCE_URL = os.getenv('SOURCE')
-KEY = os.getenv('AVIATION_API_KEY')
+KEY = os.getenv('AERO_API_KEY')
 
 def query(flight_info):
     endpoint = f"{SOURCE_URL}flights"

@@ -48,3 +48,6 @@ def status():
 
     return redirect("/")
 
+@app.route("/stack")
+def stack():
+    return render_template("stack.html");
