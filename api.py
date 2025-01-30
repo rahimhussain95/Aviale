@@ -12,7 +12,7 @@ KEY = os.getenv('AERO_API_KEY')
 HEADERS = {'x-apikey': KEY}
 
 def query_flight(ident, ident_type='designator'):
-    endpoint = f"{SOURCE_URL}flights/{ident}"
+    endpoint = f"{SOURCE_URL}/flights/{ident}"
 
     params = {
         'ident_type': ident_type,
@@ -25,6 +25,6 @@ def query_flight(ident, ident_type='designator'):
         data = response.json()
         return data
     else:
-        print{f"Error: {response.status_code}, {response.text}"}
+        print(f"Error: {response.status_code}, {response.text}")
         return {'error': 'Failed to fetch flight information'}
     
