@@ -1,6 +1,6 @@
 from datetime import datetime
 import sqlite3
-from api import query, flight_ap
+from api import query_flight, flight_ap
 
 from flask import Flask, flash, redirect, render_template, request
 
@@ -11,6 +11,12 @@ app.register_blueprint(flight_ap, url_prefix='/api')
 @app.route("/")
 def index():
     return render_template("index.html");
+
+@app.route("/data")
+def test():
+    ident = "UAL4"
+    flight_data = query_flight(ident)
+    return jsonify(flight_data)
 
 @app.route("/status", methods =["GET", "POST"])
 def status():

@@ -9,15 +9,17 @@ flight_ap = Blueprint('api', __name__)
 SOURCE_URL = os.getenv('SOURCE')
 KEY = os.getenv('AERO_API_KEY')
 
-def query(flight_info):
-    endpoint = f"{SOURCE_URL}flights"
+HEADERS = {'x-apikey': KEY}
+
+def query_flight(ident, ident_type='designator'):
+    endpoint = f"{SOURCE_URL}flights/{ident}"
 
     params = {
-        'access_key': KEY,
-        'flight_iata': flight_info
+        'ident_type': ident_type,
+        'max_pages': 1
     }
 
-    response = requests.get(endpoint, params=params)
+    response = requests.get(endpoint, headers=HEADERS params=params)
 
     if response.status_code == 200:
         data = response.json()
