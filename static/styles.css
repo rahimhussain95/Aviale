@@ -1,5 +1,5 @@
 html, body {
-    background-color: #06402b;
+    background-color: #efd079;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -8,6 +8,8 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 header {
@@ -25,6 +27,19 @@ main {
     border-radius: 3px;
     padding: 2px;
 } */
+
+.main-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#plane {
+  max-width: 30%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
 
 .itinerary {
     display: flex;
@@ -141,10 +156,6 @@ main {
     transition: 100ms;
   }
 
-  #plane {
-    fill: #efd079;
-
-  }
 
   /* Dark mode toggle button */
   /* From Uiverse.io by Nawsome */ 

@@ -1,14 +1,16 @@
 {% extends "layout.html" %}
 
 {% block main %}
-<img src="../static/flightfav.svg" alt="flight" id="plane">
-<form action="/status" method="post" class="itinerary" id="IATA">
-    <div class="input-container">
-        <input id="airline" name="airline" placeholder="Airline">
-    </div>
-    <div class="input-container">
-        <input id="flightNo" name="flightNo" placeholder="Flight #">
-    </div>
-    <button type="submit">Flight Status</button>
-</form>
+<div id="main-container">
+    <img src="../static/images/Aviale_PNG_File-01.png" alt="flight" id="plane">
+    <form action="/status" method="post" class="itinerary" id="IATA">
+        <div class="input-container">
+            <input id="airline" name="airline" placeholder="Airline">
+        </div>
+        <div class="input-container">
+            <input id="flightNo" name="flightNo" placeholder="Flight #">
+        </div>
+        <button type="submit">Flight Status</button>
+    </form>
+</div>
 {% endblock %}
