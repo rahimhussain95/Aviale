@@ -61,9 +61,9 @@ jobs:
           cd kubernetes-repo
           sed -i 's|image: rahimhussain95/aviale:.*|image: rahimhussain95/aviale:${{ env.IMAGE_TAG }}|' apps/aviale/deployment.yaml
 
-          sed -i 's|AERO_API_KEY=.*|AERO_API_KEY=${{ env.AERO_API_KEY }}|' apps/aviale/deployment.yaml
-          sed -i 's|AERO_API_SOURCE=.*|AERO_API_SOURCE=${{ env.AERO_API_SOURCE }}|' apps/aviale/deployment.yaml
-          
+          sed -i 's|value: "${AERO_API_KEY}"|value: "'"${{ secrets.AERO_API_KEY }}"'"|' apps/aviale/deployment.yaml
+          sed -i 's|value: "${AERO_API_SOURCE}"|value: "'"${{ secrets.AERO_API_SOURCE }}"'"|' apps/aviale/deployment.yaml
+
           git config --global user.email "rahimh.dev@gmail.com"
           git config --global user.name "GitHub Actions"
           git add apps/aviale/deployment.yaml
