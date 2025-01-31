@@ -108,6 +108,7 @@ main {
       inset -5px -5px 10px #383e4b,
       0px 0px 100px rgba(255, 212, 59, 0),
       0px 0px 100px rgba(255, 102, 0, 0);
+    box-sizing: border-box;
     width: 100%;
     flex-basis: 100%;
     padding: 1rem;
@@ -130,10 +131,12 @@ main {
   @media (max-width: 500px) {
     .input-container {
       flex-direction: column;
+      width: 100%;
     }
   
     .input-container input {
       border-radius: 0.8rem;
+      width: 100%;
     }
   }
 
