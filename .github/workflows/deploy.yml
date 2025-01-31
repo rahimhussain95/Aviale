@@ -46,11 +46,24 @@ jobs:
           token: ${{ secrets.KUBERNETES_REPO_TOKEN }}
           path: kubernetes-repo
       
+      # Get environment variables from Github Secrets
+      - name: Aero API Key and fetch Source
+        env:
+          AERO_API_KEY: ${{ secrets.AERO_API_KEY }}
+          AERO_API_SOURCE: ${{ secrets.AERO_API_SOURCE }}
+        run: |
+          echo "AERO_API_KEY=${{ secrets.AERO_API_KEY }}" >> $GITHUB_ENV
+          echo "AERO_API_SOURCE=${{ secrets.AERO_API_SOURCE }}" >> $GITHUB_ENV
+
       # Kubernetes deploys updated container
       - name: Update Kubernetes deployment manifest
         run: |
           cd kubernetes-repo
           sed -i 's|image: rahimhussain95/aviale:.*|image: rahimhussain95/aviale:${{ env.IMAGE_TAG }}|' apps/aviale/deployment.yaml
+
+          sed -i 's|AERO_API_KEY=.*|AERO_API_KEY=${{ env.AERO_API_KEY }}|' apps/aviale/deployment.yaml
+          sed -i 's|AERO_API_SOURCE=.*|AERO_API_SOURCE=${{ env.AERO_API_SOURCE }}|' apps/aviale/deployment.yaml
+          
           git config --global user.email "rahimh.dev@gmail.com"
           git config --global user.name "GitHub Actions"
           git add apps/aviale/deployment.yaml

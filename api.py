@@ -6,7 +6,7 @@ import os
 flight_ap = Blueprint('api', __name__)
 
 #Aviation Stack API
-SOURCE_URL = os.getenv('SOURCE')
+SOURCE_URL = os.getenv('AERO_API_SOURCE')
 KEY = os.getenv('AERO_API_KEY')
 
 HEADERS = {'x-apikey': KEY}
