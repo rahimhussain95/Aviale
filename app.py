@@ -29,7 +29,7 @@ def status():
         db = conn.cursor()
 
         flightIATA = db.execute("SELECT IATA FROM airlines WHERE airline = ?", (airline,)).fetchone()[0]
-        flight_data = query(flightIATA + flightnumber)
+       # flight_data = query(flightIATA + flightnumber)
         flight_info = flight_data['data'][0]
 
         departure_details = {
