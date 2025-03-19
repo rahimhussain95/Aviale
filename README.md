@@ -1,4 +1,4 @@
-![Logo](static/images/Aviale_PNG_File_-01.png)
+![Logo](static/images/Aviale_PNG_File-01.png)
 
 Aviale is a simple flight status monitoring web application that uses FlightAware's AeroAPI to dynamically deliver updates.
 
