@@ -9,7 +9,7 @@ function debounce(func, delay) {
 function handleInput(inputId, dropdownId, type) {
     const input = document.getElementById(inputId);
     const dropdown = document.getElementById(dropdownId);
-    console.log(`Initializing: ${inputId}, Dropdown:`, dropdown); // ✅ Debug log
+    console.log(`Initializing: ${inputId}, Dropdown:`, dropdown); 
     console.log("Dropdown Element:", dropdown);
 
     if (!input || !dropdown) {
@@ -40,7 +40,7 @@ function handleInput(inputId, dropdownId, type) {
             dropdown.innerHTML = '';
             dropdown.style.display = 'none';
         }
-    }, 300); // Debounce delay: 300ms
+    }, 300);
 
     input.addEventListener('input', debouncedSearch);
 
@@ -51,7 +51,7 @@ function handleInput(inputId, dropdownId, type) {
     });
 
     function displayResults(results,) {
-        console.log("Dropdown Element:", dropdown);  // ✅ Debugging log
+        console.log("Dropdown Element:", dropdown); 
         dropdown.innerHTML = '';
     
         if (results.length === 0) {
@@ -63,7 +63,7 @@ function handleInput(inputId, dropdownId, type) {
         dropdown.style.width = input.offsetWidth + 'px';
     
         results.forEach((item) => {
-            console.log("Dropdown Item Data:", item);  // ✅ Debugging log
+            console.log("Dropdown Item Data:", item); 
             const div = document.createElement('div');
             div.classList.add('autocomplete-item');
             div.textContent = item.display;  // ✅ Ensure correct field

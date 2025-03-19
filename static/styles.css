@@ -694,3 +694,8 @@ main {
     0 0 15px #39ff14,
     0 0 20px #39ff14;             
 }
+
+.status-logo {
+  flex: 1;
+  position: relative;
+}
